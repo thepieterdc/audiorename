@@ -1,10 +1,13 @@
 # mp3rename
 Cross-platform application to rename MP3 files based on their ID3 tags. Files will be renamed to the following format: ```Artist - Title.mp3```
 
+## Installation
+Java 8 or higher is required.
+
 ## Usage
 
 ### Graphical environment
-Simply drag the input files onto the ```mp3rename.jar```-file.
+Simply open the ```mp3rename.jar```-file.
 
 ### Commandline Interface
 
