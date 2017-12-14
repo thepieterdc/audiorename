@@ -1,4 +1,4 @@
-package io.thepieterdc.mp3rename;
+package io.thepieterdc.audiorename;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +35,7 @@ class GUI extends VBox {
 		fileName.setTextAlignment(TextAlignment.CENTER);
 		
 		final ProgressBar progressBar = new ProgressBar(0);
-		progressBar.setPrefWidth(200);
+		progressBar.setPrefWidth(100);
 		
 		this.getChildren().addAll(counter, progressBar, fileName);
 		
@@ -44,6 +44,7 @@ class GUI extends VBox {
 		this.setMaxWidth(Double.MIN_VALUE);
 		this.setMinHeight(Double.MIN_VALUE);
 		this.setMinWidth(Double.MIN_VALUE);
+		this.setPrefSize(300, 300);
 		this.setPadding(new Insets(20, 20, 20, 20));
 		
 		this.counterProperty = new SimpleIntegerProperty(0);

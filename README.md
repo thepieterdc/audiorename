@@ -1,5 +1,5 @@
-# mp3rename
-Cross-platform application to rename MP3 files based on their ID3 tags. Files will be renamed to the following format: ```Artist - Title.mp3```
+# audiorename
+Cross-platform application to rename audio files based on their metatags. Files will be renamed to the following format: ```Artist - Title.extension```
 
 ## Installation
 Java 8 or higher is required.
@@ -7,11 +7,21 @@ Java 8 or higher is required.
 ## Usage
 
 ### Graphical environment
-Simply open the ```mp3rename.jar```-file.
+Simply open the ```audiorename.jar```-file.
 
 ### Commandline Interface
 
-```java -jar mp3convert.jar file1.mp3 file2.mp3 file3.mp3```
+```java -jar audiorename.jar file1.mp3 file2.m4a file3.ogg```
+
+## Supported extensions
+- Mp3
+- Flac
+- OggVorbis
+- Mp4
+- Aiff
+- Wav
+- Wma
+- Dsf
 
 ## Libraries used
-* [mp3agic by mpatric](https://github.com/mpatric/mp3agic)
+* [jaudiotagger by ijabz](https://bitbucket.org/ijabz/jaudiotagger/downloads/)

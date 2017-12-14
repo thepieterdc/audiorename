@@ -1,9 +1,5 @@
-package io.thepieterdc.mp3rename;
+package io.thepieterdc.audiorename;
 
-import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,31 +9,32 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
 public class Main extends Application {
-	private static final String VERSION = "1.0.0";
+	private static final String VERSION = "1.1.0";
 	
 	private static File doRename(File file) throws Exception {
-		final Mp3File mp3File = new Mp3File(file);
+		final AudioFile audioFile = AudioFileIO.read(file);
 		
-		String artist;
-		String title;
+		final Tag metaTags = audioFile.getTag();
 		
-		if (mp3File.hasId3v1Tag()) {
-			ID3v1 tag = mp3File.getId3v1Tag();
-			artist = tag.getArtist();
-			title = tag.getTitle();
-		} else if (mp3File.hasId3v2Tag()) {
-			ID3v2 tag = mp3File.getId3v2Tag();
-			artist = tag.getArtist();
-			title = tag.getTitle();
-		} else {
-			throw new UnsupportedTagException("Unreadable tag format.");
+		if (!metaTags.hasField(FieldKey.ARTIST)) {
+			throw new Exception("Artist not found.");
 		}
+		String artist = metaTags.getFirst(FieldKey.ARTIST);
+		
+		if (!metaTags.hasField(FieldKey.TITLE)) {
+			throw new Exception("Title not found.");
+		}
+		String title = metaTags.getFirst(FieldKey.TITLE);
 		
 		final String oldFileName = file.getAbsolutePath();
 		final int fileIdx = oldFileName.lastIndexOf(file.getName());
@@ -91,7 +88,7 @@ public class Main extends Application {
 		final Scene scene = new Scene(gui);
 		
 		stage.setScene(scene);
-		stage.setTitle("mp3rename v" + VERSION);
+		stage.setTitle("audiorename v" + VERSION);
 		stage.centerOnScreen();
 		stage.show();
 		
@@ -99,7 +96,7 @@ public class Main extends Application {
 		final SimpleStringProperty filename = gui.fileNameProperty();
 		
 		for (File file : files) {
-			counter.add(1);
+			counter.setValue(counter.get() + 1);
 			filename.set(file.getName());
 			
 			try {
