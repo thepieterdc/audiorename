@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class Main extends Application {
-	private static final String VERSION = "1.1.0";
+	private static final String VERSION = "1.1.1";
 	
 	private static File doRename(File file) throws Exception {
 		final AudioFile audioFile = AudioFileIO.read(file);
@@ -37,8 +37,9 @@ public class Main extends Application {
 		String title = metaTags.getFirst(FieldKey.TITLE);
 		
 		final String oldFileName = file.getAbsolutePath();
+		final String extension = oldFileName.substring(oldFileName.lastIndexOf('.'));
 		final int fileIdx = oldFileName.lastIndexOf(file.getName());
-		final String newFileName = oldFileName.substring(0, fileIdx) + artist + " - " + title + ".mp3";
+		final String newFileName = oldFileName.substring(0, fileIdx) + artist + " - " + title + extension;
 		final File newFile = new File(newFileName);
 		
 		if (newFile.exists()) {
